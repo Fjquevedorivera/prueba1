@@ -10,36 +10,43 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<%@ include file="../templates/navigation.jsp" %>
 	<div class="container">
-		<form:form class="form-group" method="POST" action="/venta/agregar" modelAttribute="venta">
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="date">Fecha:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="date"/> 
-				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="total">Total:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="total"/> 
-				</div>
-			</div>
-			<div class="d-flex justify-content-center">
-				<input class="btn btn-danger m-2" type="reset" value="Limpiar">
-				<input class="btn btn-primary m-2" type="submit" value="Insertar"> 
-			</div>
-		</form:form>
+		<div class="card">
+	  		<h5 class="card-header">Generar Venta</h5>
+		  	<div class="card-body">
+				<form:form class="form-group" method="POST" action="/venta/agregar" modelAttribute="venta">
+					<div class="row">
+						<form:label class="col-2 col-form-label" path="date">Fecha:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="date"/> 
+						</div>
+					</div>
+					<div class="row">
+						<form:label class="col-2 col-form-label" path="total">Total:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="total"/> 
+						</div>
+					</div>
+					<div class="d-flex justify-content-center">
+						<input class="btn btn-danger m-2" type="reset" value="Limpiar">
+						<input class="btn btn-primary m-2" type="submit" value="Insertar"> 
+					</div>
+				</form:form>
+		  	</div>
+		</div>
+
 		
 		<br>
-		<hr>
 		
+	  	<h5 class="card-header">Listado de ventas</h5>
 		<table class="table">
 			<thead>
 		    	<tr>
 		      	<th scope="col">#</th>
 		      	<th scope="col">Fecha</th>
 		      	<th scope="col">Total</th>
+		      	<th scope="col">Acciones</th>
 		    	</tr>
 		  	</thead>
 		  	<tbody>

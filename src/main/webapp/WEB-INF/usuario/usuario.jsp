@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,42 +11,48 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
+	<%@ include file="../templates/navigation.jsp" %>
 	<div class="container">
-		<form:form class="form-group" method="POST" action="/usuario/agregar" modelAttribute="usuario">
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="name">Nombre:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="name"/> 
-				</div>
+		<div class="card">
+			<h5 class="card-header">Crear Usuario</h5>
+		  	<div class="card-body">
+				<form:form class="form-group" method="POST" action="/usuario/agregar" modelAttribute="usuario">
+					<div class="row">
+						<form:label class="col-2 col-form-label" path="name">Nombre:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="name"/> 
+						</div>
+					</div>
+					<div class="row">
+						<form:label class="col-2 col-form-label" path="last_name">Apellido:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="last_name"/> 
+						</div>
+					</div>
+					<div class="row">
+						<form:label class="col-2 col-form-label" path="email">Email:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="email"/> 
+						</div>
+					</div>
+					<div class="row">
+						<form:label class="col-2 col-form-label" path="password">Password:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="password"/>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center">
+						<input class="btn btn-danger m-2" type="reset" value="Limpiar">
+						<input class="btn btn-primary m-2" type="submit" value="Insertar"> 
+					</div>
+				</form:form>
 			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="last_name">Apellido:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="last_name"/> 
-				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="email">Email:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="email"/> 
-				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="password">Password:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="password"/>
-				</div>
-			</div>
-			<div class="d-flex justify-content-center">
-				<input class="btn btn-danger m-2" type="reset" value="Limpiar">
-				<input class="btn btn-primary m-2" type="submit" value="Insertar"> 
-			</div>
-		</form:form>
+		</div>
 		
 		<br>
-		<hr>
 		
+		<h5 class="card-header">Listado de usuarios</h5>
 		<table class="table">
 			<thead>
 		    	<tr>

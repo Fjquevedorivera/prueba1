@@ -10,42 +10,48 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<%@ include file="../templates/navigation.jsp" %>
 	<div class="container">
-		<form:form class="form-group" method="POST" action="/producto/agregar" modelAttribute="producto">
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="barcode">Código:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="barcode"/> 
+	<div class="card">
+	  	<h5 class="card-header">Agregar producto</h5>
+	  	<div class="card-body">
+			<form:form class="form-group" method="POST" action="/producto/agregar" modelAttribute="producto">
+				<div class="row">
+					<form:label class="col-2 col-form-label" path="barcode">Código:</form:label>
+					<div class="col-10">
+						<form:input class="form-control" type="text" path="barcode"/> 
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="name">Nombre:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="name"/> 
+				<div class="row">
+					<form:label class="col-2 col-form-label" path="name">Nombre:</form:label>
+					<div class="col-10">
+						<form:input class="form-control" type="text" path="name"/> 
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="brand">Marca:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="brand"/> 
+				<div class="row">
+					<form:label class="col-2 col-form-label" path="brand">Marca:</form:label>
+					<div class="col-10">
+						<form:input class="form-control" type="text" path="brand"/> 
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="price">Precio:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="price"/>
+				<div class="row">
+					<form:label class="col-2 col-form-label" path="price">Precio:</form:label>
+					<div class="col-10">
+						<form:input class="form-control" type="text" path="price"/>
+					</div>
 				</div>
-			</div>
-			<div class="d-flex justify-content-center">
-				<input class="btn btn-danger m-2" type="reset" value="Limpiar">
-				<input class="btn btn-primary m-2" type="submit" value="Insertar"> 
-			</div>
-		</form:form>
+				<div class="d-flex justify-content-center">
+					<input class="btn btn-danger m-2" type="reset" value="Limpiar">
+					<input class="btn btn-primary m-2" type="submit" value="Insertar"> 
+				</div>
+			</form:form>
+	  	</div>
+	</div>
+
 		
 		<br>
-		<hr>
 		
+		<h5 class="card-header">Listado de productos</h5>
 		<table class="table">
 			<thead>
 		    	<tr>
