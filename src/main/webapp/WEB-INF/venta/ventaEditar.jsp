@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<%@ include file="../templates/navigation.jsp" %>
 	<div class="container">
 		<form:form class="form-group" method="POST" action="/venta/actualizar" modelAttribute="ventaActualizar">
 			<div class="row">
