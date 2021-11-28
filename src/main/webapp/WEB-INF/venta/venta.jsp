@@ -12,7 +12,7 @@
 <body>
 	<%@ include file="../templates/navigation.jsp" %>
 	<div class="container">
-		<div class="card">
+<%-- 		<div class="card">
 	  		<h5 class="card-header">Generar Venta</h5>
 		  	<div class="card-body">
 				<form:form class="form-group" method="POST" action="/venta/agregar" modelAttribute="venta">
@@ -35,7 +35,7 @@
 				</form:form>
 		  	</div>
 		</div>
-
+ --%>
 		
 		<br>
 		

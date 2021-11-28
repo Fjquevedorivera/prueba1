@@ -1,5 +1,7 @@
 package com.nttdata.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nttdata.models.Usuario;
+import com.nttdata.services.ProductoService;
 import com.nttdata.services.UsuarioService;
 
 @Controller
@@ -20,6 +23,9 @@ public class UsuarioController {
 	@Autowired 
 	UsuarioService usuarioService;
 	
+	@Autowired 
+	ProductoService productoService;
+	
 	@RequestMapping("")
 	public String usuario(@ModelAttribute("usuario") Usuario usuario,
 			Model model) {
@@ -27,10 +33,53 @@ public class UsuarioController {
 		return "usuario/usuario.jsp";
 	}
 	
+	@RequestMapping("/registro")
+	public String registro(@ModelAttribute("usuario") Usuario usuario,
+			Model model) {
+		return "usuario/registro.jsp";
+	}
+	
 	@RequestMapping("/agregar")
-	public String login(@Valid @ModelAttribute("usuario") Usuario usuario) {
+	public String agregar(@Valid @ModelAttribute("usuario") Usuario usuario) {
 		usuarioService.insertarUsuario(usuario);
 		return "redirect:/usuario";
+	}
+	
+	@RequestMapping("/registrar")
+	public String registrar(@Valid @ModelAttribute("usuario") Usuario usuario) {
+		usuarioService.insertarUsuario(usuario);
+		return "redirect:/usuario/login";
+	}
+	
+	@RequestMapping("/login")
+	public String login(@ModelAttribute("usuario") Usuario usuario) {
+		System.out.println(usuario.getId());
+		return "usuario/login.jsp";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(@ModelAttribute("usuario") Usuario usuario, HttpSession session) {
+		System.out.println(usuario.getId());
+		session.setAttribute("usuarioLogin", null);
+		return "usuario/login.jsp";
+	}
+	
+	@RequestMapping("/iniciar")
+	public String iniciar(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
+		Usuario usuarioLogin = usuarioService.getIdLoginUser(usuario.getEmail(), usuario.getPassword());
+		
+		if(usuarioLogin != null) {
+			System.out.println(usuarioLogin.getId());
+			session.setAttribute("usuarioLogin", usuarioLogin);
+			model.addAttribute("usuarioLogin", usuarioLogin);
+			model.addAttribute("listaProductos", productoService.obtenerListaProducto());
+			model.addAttribute("error", null);
+			return "redirect:/producto";
+		} else {
+			model.addAttribute("error", "Usuario y contraseña incorrectos");
+			return "usuario/login.jsp";
+		}
+		
 	}
 	
 	@RequestMapping("/eliminar")

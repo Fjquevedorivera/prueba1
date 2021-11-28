@@ -12,37 +12,57 @@
 <body>
 	<%@ include file="../templates/navigation.jsp" %>
 	<div class="container">
-		<form:form class="form-group" method="POST" action="/producto/actualizar" modelAttribute="productoActualizar">
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="barcode">Código:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="barcode"/> 
-				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="name">Nombre:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="name"/> 
-				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="brand">Marca:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="brand"/> 
-				</div>
-			</div>
-			<div class="row">
-				<form:label class="col-2 col-form-label" path="price">Precio:</form:label>
-				<div class="col-10">
-					<form:input class="form-control" type="text" path="price"/>
-				</div>
-			</div>
-			<div class="d-flex justify-content-center">
-				<input class="btn btn-danger m-2" type="reset" value="Limpiar">
-				<input class="btn btn-primary m-2" type="submit" value="Actualizar"> 
-			</div>
-		</form:form>
+		<div class="card">
+		  	<h5 class="card-header">Editar producto</h5>
+		  	<div class="card-body">
+				<form:form class="form-group" method="POST" action="/producto/actualizar" modelAttribute="producto">
+					<form:input type="hidden" path="id"/> 
+					<input type="hidden" name="_method" value="put">
+					<div class="row">
+						<form:label class="col-2 col-form-label" path="name">Nombre:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="name"/> 
+						</div>
+		
+						<form:label class="col-2 col-form-label" path="brand">Marca:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="brand"/> 
+						</div>
+		
+						<form:label class="col-2 col-form-label" path="price">Precio:</form:label>
+						<div class="col-10">
+							<form:input class="form-control" type="text" path="price"/>
+						</div>
+						
+						<div class="form-group row">
+							<form:label class="col-sm-2 col-form-label" path="categorias">Productos:</form:label>
+							<form:select class="form-select" path="categorias" multiple="true" aria-label="Seleccionar categorias">
+								<option disabled>Seleccione Categorias</option>
+								<c:forEach items="${listaCategorias}" var="categoria">
+									<c:choose>
+									<c:when test="${producto.getCategorias().contains(categoria)}">
+										<form:option value="${categoria.getId()}" selected="true">
+												${categoria.getName()}
+										</form:option>
+									</c:when>
+									<c:when test="${!producto.getCategorias().contains(producto)}">
+										<form:option value="${categoria.getId()}">
+												${categoria.getName()} 
+										</form:option>
+									</c:when>
+									</c:choose>
+								</c:forEach>
+							</form:select>
+						</div>
 			
+						<div class="d-flex justify-content-center">
+							<input class="btn btn-danger m-2" type="reset" value="Limpiar">
+							<input class="btn btn-primary m-2" type="submit" value="Actualizar"> 
+						</div>
+					</div>
+				</form:form>
+			</div>
+		</div>
 	</div>
 	
 </body>

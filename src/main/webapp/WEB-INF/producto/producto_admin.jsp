@@ -2,7 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +10,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
 	<%@ include file="../templates/navigation.jsp" %>
 	<div class="container">
 		<div class="card">
-			<h5 class="card-header">Crear Usuario</h5>
+		  	<h5 class="card-header">Agregar producto</h5>
 		  	<div class="card-body">
-				<form:form class="p-4" method="POST" action="/usuario/agregar" modelAttribute="usuario">
+				<form:form class="p-4" method="POST" action="/producto/agregar" modelAttribute="producto">
 					<div class="form-group row">
 						<form:label class="col-sm-2 col-form-label" path="name">Nombre:</form:label>
 						<div class="col-sm-10">
@@ -25,58 +23,64 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<form:label class="col-sm-2 col-form-label" path="last_name">Apellido:</form:label>
+						<form:label class="col-sm-2 col-form-label" path="brand">Marca:</form:label>
 						<div class="col-sm-10">
-							<form:input class="form-control" type="text" path="last_name"/> 
+							<form:input class="form-control" type="text" path="brand"/> 
 						</div>
 					</div>
 					<div class="form-group row">
-						<form:label class="col-sm-2 col-form-label" path="email">Email:</form:label>
+						<form:label class="col-sm-2 col-form-label" path="price">Precio:</form:label>
 						<div class="col-sm-10">
-							<form:input class="form-control" type="text" path="email"/> 
+							<form:input class="form-control" type="text" path="price"/>
 						</div>
 					</div>
 					<div class="form-group row">
-						<form:label class="col-sm-2 col-form-label" path="password">Password:</form:label>
-						<div class="col-sm-10">
-							<form:input class="form-control" type="password" path="password"/>
-						</div>
+						<form:label class="col-sm-2 col-form-label" path="categorias">Categorias:</form:label>
+						<form:select class="form-select" path="categorias" multiple="true" aria-label="Seleccionar categorias">
+							<option disabled>Seleccione Categorias</option>
+							<c:forEach items="${listaCategorias}" var="categoria">
+								<form:option value="${categoria.getId()}">
+									${categoria.getName()}
+								</form:option>
+							</c:forEach>
+						</form:select>
 					</div>
 					<div class="d-flex justify-content-center pt-4">
 						<input class="btn btn-danger m-2" type="reset" value="Limpiar">
 						<input class="btn btn-primary m-2" type="submit" value="Insertar"> 
 					</div>
 				</form:form>
-			</div>
-		</div>
+		  	</div>
+	</div>
+
 		
 		<br>
 		
-		<h5 class="card-header">Listado de usuarios</h5>
+		<h5 class="card-header">Listado de productos</h5>
 		<table class="table">
 			<thead>
 		    	<tr>
 		      	<th scope="col">#</th>
 		      	<th scope="col">Nombre</th>
-		      	<th scope="col">Apellido</th>
-		      	<th scope="col">Email</th>
+		      	<th scope="col">Marca</th>
+		      	<th scope="col">Precio</th>
 		      	<th scope="col-2">Acciones</th>
 		    	</tr>
 		  	</thead>
 		  	<tbody>
-		  		<c:forEach items="${listaUsuarios}" var="usuario">
+		  		<c:forEach items="${listaProductos}" var="producto">
 		    		<tr>
-			      		<th scope="row">${usuario.getId()}</th>
-			      		<td>${usuario.getName()}</td>
-			      		<td>${usuario.getLast_name()}</td>
-			      		<td>${usuario.getEmail()}</td>
+			      		<th scope="row">${producto.getId()}</th>
+			      		<td>${producto.getName()}</td>
+			      		<td>${producto.getBrand()}</td>
+			      		<td>${producto.getPrice()}</td>
 	      		  		<td class="d-flex justify-content-center">
-	      		  		<form method="" action="/usuario/eliminar">
-	      		  			<input type="hidden" name="id" value="${usuario.getId()}">
+	      		  		<form method="" action="/producto/eliminar">
+	      		  			<input type="hidden" name="id" value="${producto.getId()}">
 							<input class="btn btn-danger btn-sm" type="submit" value="Eliminar">
 	      		  		</form>
-	      		  		<form method="" action="/usuario/editar">
-	      		  			<input type="hidden" name="id" value="${usuario.getId()}">
+	      		  		<form method="" action="/producto/editar">
+	      		  			<input type="hidden" name="id" value="${producto.getId()}">
 							<input class="btn btn-primary btn-sm" type="submit" value="Editar">
 						</form>
 				  		</td>

@@ -21,9 +21,8 @@ public class Venta {
 		super();
 	}
 
-	public Venta(Long id, String date, String total) {
+	public Venta(String date, String total) {
 		super();
-		this.id = id;
 		this.date = date;
 		this.total = total;
 	}
