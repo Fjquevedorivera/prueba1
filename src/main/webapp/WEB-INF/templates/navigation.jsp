@@ -51,7 +51,40 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+      		<table class="table">
+			<thead>
+		    	<tr>
+		      	<th scope="col">#</th>
+		      	<th scope="col">Nombre</th>
+		      	<th scope="col">Descripción</th>
+		      	<th scope="col">Cantidad</th>
+		      	<th scope="col">Subtotal</th>
+		      	<!-- <th scope="col-2">Acciones</th> -->
+		    	</tr>
+		  	</thead>
+		  	<tbody>
+		  		<c:forEach items="${sessionScope.carro}" var="producto_usuario">
+		    		<tr>
+			      		<th scope="row">${producto_usuario.getProducto().getId()}</th>
+			      		<td>${producto_usuario.getProducto().getName()}</td>
+			      		<td>${producto_usuario.getProducto().getBrand()}</td>
+			      		<td>${producto_usuario.getQuantity_product()}</td>
+			      		<td>${producto_usuario.getTotal_product()}</td>
+	 <%--      		  		<td class="d-flex justify-content-center">
+		      		  		<form method="" action="/categoria/eliminar">
+		      		  			<input type="hidden" name="id" value="${categoria.getId()}">
+								<input class="btn btn-danger btn-sm" type="submit" value="Eliminar">
+		      		  		</form>
+		      		  		<form method="" action="/categoria/editar">
+		      		  			<input type="hidden" name="id" value="${categoria.getId()}">
+								<input class="btn btn-primary btn-sm" type="submit" value="Editar">
+							</form>
+				  		</td> --%>
+		    		</tr>
+		  		</c:forEach>
+		  	</tbody>
+		</table>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

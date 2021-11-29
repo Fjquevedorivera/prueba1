@@ -61,6 +61,7 @@ public class UsuarioController {
 	public String logout(@ModelAttribute("usuario") Usuario usuario, HttpSession session) {
 		System.out.println(usuario.getId());
 		session.setAttribute("usuarioLogin", null);
+		session.setAttribute("carro", null);
 		return "usuario/login.jsp";
 	}
 	

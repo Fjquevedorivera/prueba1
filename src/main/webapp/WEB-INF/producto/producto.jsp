@@ -32,15 +32,16 @@
 			      		<td>${producto.getName()}</td>
 			      		<td>${producto.getBrand()}</td>
 			      		<td>${producto.getPrice()}</td>
-	      		  		<form method="POST" action="/producto/carro">
+	      		  		<form:form method="POST" action="/productousuario" var="producto_usuario">
 	      		  			<td>
-	      		  				<input class="form-control form-control-sm text-end" name="quantity_product" name="quantity_product" value="Ingrese cantidad de productos">
+	      		  				<input class="form-control form-control-sm text-end" id="quantity_product" name="quantity_product" value="" placeholder="Ingrese cantidad de productos">
+		      		  			<input type="hidden" id="producto" name="producto" value="${producto.getId()}">
+		      		  			<input type="hidden" id="usuario" name="usuario" value="${sessionScope.usuarioLogin.getId()}">
 	      		  			</td>
 		      		  		<td class="d-flex justify-content-center">	
-		      		  			<input type="hidden" name="id" value="${producto.getId()}">
 								<input class="btn btn-success btn-sm" type="submit" value="Agregar al carro">
 		      		  		</td>
-	      		  		</form>
+	      		  		</form:form>
 		    		</tr>
 		  		</c:forEach>
 		  	</tbody>
