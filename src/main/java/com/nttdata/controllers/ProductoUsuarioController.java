@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nttdata.models.Producto;
 import com.nttdata.models.ProductoUsuario;
 import com.nttdata.models.Usuario;
 import com.nttdata.services.ProductoUsuarioService;
@@ -69,8 +71,33 @@ public class ProductoUsuarioController {
 						+ " Cantidad: " + carro.get(i).getQuantity_product()+ " Precio: " + carro.get(i).getTotal_product());
 			}
 		}
-		
 		session.setAttribute("precioTotal", precio_total);
+		
+		return "redirect:/producto";
+	}
+	
+	
+	@RequestMapping("/eliminar")
+	public String eliminar(@RequestParam("producto_id") Long producto_id, HttpSession session) {
+		List<ProductoUsuario> carro = (List<ProductoUsuario>) session.getAttribute("carro");
+		int precio_total = 0;
+		
+		for (int i = 0; i < carro.size(); i++) {
+			if (carro.get(i).getProducto().getId() == producto_id) {
+				carro.remove(i);
+			} 
+		}
+		
+		if (carro != null) {
+			for (int i = 0; i < carro.size(); i++) {
+				precio_total += carro.get(i).getTotal_product();
+				System.out.println("Carro: "+ carro.get(i).getProducto().getId() 
+						+ " Cantidad: " + carro.get(i).getQuantity_product()+ " Precio: " + carro.get(i).getTotal_product());
+			}
+		}
+		session.setAttribute("precioTotal", precio_total);
+		
+		session.setAttribute("carro", carro);
 		return "redirect:/producto";
 	}
 
