@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nttdata.models.Categoria;
 import com.nttdata.models.Producto;
 import com.nttdata.repositories.ProductoRepository;
 
@@ -38,6 +39,10 @@ public class ProductoService {
 
 	public void eliminarProductoObj(Producto usuario) {
 		productoRepository.delete(usuario);
+	}
+
+	public List<Producto> productosByCategoria(Long id) {
+		return productoRepository.productosByCategoria(id);
 	}
 	
 }

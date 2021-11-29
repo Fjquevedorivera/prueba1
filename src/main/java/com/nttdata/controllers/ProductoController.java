@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nttdata.models.Categoria;
 import com.nttdata.models.Producto;
 import com.nttdata.models.Usuario;
 import com.nttdata.services.CategoriaService;
@@ -31,9 +32,11 @@ public class ProductoController {
 	
 	@RequestMapping("")
 	public String producto(@ModelAttribute("producto") Producto producto,
+			@ModelAttribute("categoria") Categoria categoria,
 			Model model, HttpSession session) {
 		Usuario usuarioLogin = (Usuario)session.getAttribute("usuarioLogin");
 		if(usuarioLogin != null) {
+			model.addAttribute("listaCategorias", categoriaService.obtenerListaCategoria());
 			model.addAttribute("listaProductos", productoService.obtenerListaProducto());
 			return "producto/producto.jsp";
 		} else {
@@ -92,5 +95,12 @@ public class ProductoController {
 		return "redirect:/producto/producto_admin";
 	}
 	
+	@RequestMapping("/categoria")
+	public String categoria(@RequestParam("id") Long id, Model model) {
+		
+		model.addAttribute("listaCategorias", categoriaService.obtenerListaCategoria());
+		model.addAttribute("listaProductos", productoService.productosByCategoria(id));
+		return "/producto/producto.jsp";
+	}
 	
 }

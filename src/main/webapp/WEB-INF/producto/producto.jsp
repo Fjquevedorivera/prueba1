@@ -12,7 +12,26 @@
 <body>
 	<%@ include file="../templates/navigation.jsp" %>
 	<div class="container">
-
+		<div class="d-flex justify-content-between">
+       	  	<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</button>
+		  	<ul class="dropdown-menu">
+	        	<c:forEach items="${listaCategorias}" var="categoria">
+	            	<li>
+	            	<form:form method="POST" action="producto/categoria">
+	            		<input type="hidden" name="id" value="${categoria.getId()}"/> 
+	            		<button type="submit" class="dropdown-item">${categoria.getName()}</button>
+	            	</form:form>
+	            	</li>
+	          	</c:forEach>
+		  	</ul>
+			<div>
+				<form class="input-group">
+			        <input name="buscar-producto" class="form-control" type="search" placeholder="Buscar" aria-label="Buscar" style="max-width: 200px;">
+		        	<button class="btn btn-outline-success" type="submit">Buscar</button>
+		      	</form>
+			</div>	
+		</div>
+	    
 		<h5 class="card-header">Listado de productos</h5>
 		<table class="table">
 			<thead>
@@ -21,6 +40,7 @@
 		      	<th scope="col">Nombre</th>
 		      	<th scope="col">Marca</th>
 		      	<th scope="col">Precio</th>
+		      	<th scope="col">Categoría</th>
 		      	<th scope="col">Cantidad</th>
 		      	<th scope="col">Acciones</th>
 		    	</tr>
@@ -32,9 +52,14 @@
 			      		<td>${producto.getName()}</td>
 			      		<td>${producto.getBrand()}</td>
 			      		<td>${producto.getPrice()}</td>
+			      		<td>
+				      		<c:forEach items="${producto.getCategorias()}" var="categoria" varStatus="loop">
+				      			${categoria.getName()}
+				      		</c:forEach>
+			      		</td>
 	      		  		<form:form method="POST" action="/productousuario" var="producto_usuario">
 	      		  			<td>
-	      		  				<input class="form-control form-control-sm text-end" id="quantity_product" name="quantity_product" value="" placeholder="Ingrese cantidad de productos">
+	      		  				<input min="0" max="1000" type="number" class="form-control form-control-sm text-end" id="quantity_product" name="quantity_product" value="" placeholder="Ingrese cantidad de productos">
 		      		  			<input type="hidden" id="producto" name="producto" value="${producto.getId()}">
 		      		  			<input type="hidden" id="usuario" name="usuario" value="${sessionScope.usuarioLogin.getId()}">
 	      		  			</td>
