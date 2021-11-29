@@ -33,12 +33,15 @@ public class ProductoUsuarioController {
 		Integer precio = producto_usuario.getProducto().getPrice();
 		producto_usuario.setTotal_product(cantidad * precio);
 		List<ProductoUsuario> carro = (List<ProductoUsuario>) session.getAttribute("carro");
-
+		int precio_total = 0;
+		
 		if (carro == null) {
 			List<ProductoUsuario> carro_inicial = new ArrayList<ProductoUsuario>();
 			carro_inicial.add(producto_usuario);
 			session.setAttribute("carro", carro_inicial);
+			precio_total = cantidad * precio;
 		} else {
+			precio_total = 0;
 			int i_producto_existe = -1;
 			for (int i = 0; i < carro.size(); i++) {
 				if (carro.get(i).getProducto().getId() == producto_usuario.getProducto().getId()) {
@@ -58,12 +61,16 @@ public class ProductoUsuarioController {
 			session.setAttribute("carro", carro);
 		}
 		
+		
 		if (carro != null) {
 			for (int i = 0; i < carro.size(); i++) {
+				precio_total += carro.get(i).getTotal_product();
 				System.out.println("Carro: "+ carro.get(i).getProducto().getId() 
 						+ " Cantidad: " + carro.get(i).getQuantity_product()+ " Precio: " + carro.get(i).getTotal_product());
 			}
 		}
+		
+		session.setAttribute("precioTotal", precio_total);
 		return "redirect:/producto";
 	}
 

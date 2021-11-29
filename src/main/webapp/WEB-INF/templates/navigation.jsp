@@ -47,11 +47,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Productos Carrito</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Carro de compra</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      		<table class="table">
+      	<table class="table">
 			<thead>
 		    	<tr>
 		      	<th scope="col">#</th>
@@ -63,9 +63,9 @@
 		    	</tr>
 		  	</thead>
 		  	<tbody>
-		  		<c:forEach items="${sessionScope.carro}" var="producto_usuario">
+		  		<c:forEach items="${sessionScope.carro}" var="producto_usuario" varStatus="loop">
 		    		<tr>
-			      		<th scope="row">${producto_usuario.getProducto().getId()}</th>
+			      		<th scope="row">${loop.index + 1}</th>
 			      		<td>${producto_usuario.getProducto().getName()}</td>
 			      		<td>${producto_usuario.getProducto().getBrand()}</td>
 			      		<td>${producto_usuario.getQuantity_product()}</td>
@@ -86,9 +86,17 @@
 		</table>
 
       </div>
+        <div class="modal-footer">
+        	<div>
+				<p class="h4">Total: ${sessionScope.precioTotal}</p>
+      		</div>
+     	</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Comprar</button>
+		<div class="btn-group">
+	        <button type="col button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+	        <button type="col button" class="btn btn-primary">Comprar</button>
+      	</div>
+
       </div>
     </div>
   </div>
