@@ -10,8 +10,12 @@ import com.nttdata.models.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+	
 	List<Usuario> findAll();
+	Usuario findByName(String name);
+	Usuario findByEmail(String email);
 	
 	@Query("SELECT u FROM Usuario u WHERE email = ?1 and password = ?2")
 	Usuario getIdLoginUser(String email, String password);
+	
 }

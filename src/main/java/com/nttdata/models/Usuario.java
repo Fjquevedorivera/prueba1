@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity //representación de la entidad
 @Table(name="usuarios") // nombre de la tabla en la BD
@@ -24,6 +25,32 @@ public class Usuario {
 	private String last_name;
 	private String email;
 	private String password;
+	@Transient
+	private String passwordConfirmation;
+	
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
+	}
+
+	public void setPasswordConfirmation(String passwordConfirmation) {
+		this.passwordConfirmation = passwordConfirmation;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "roles_usuarios", // Tabla intermedia
+		joinColumns = @JoinColumn(name="usuario_id"), // Nombre posicionado
+		inverseJoinColumns = @JoinColumn(name="rol_id") // Nombre refereciado
+	)
+	private List<Role> roles;
 	
 	public Usuario() {
 		super();
@@ -45,13 +72,16 @@ public class Usuario {
 		this.productos = productos;
 	}
 
-	public Usuario(Long id, String name, String last_name, String email, String password) {
+	public Usuario(String name, String last_name, String email, String password, String passwordConfirmation,
+			List<Role> roles, List<Producto> productos) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.last_name = last_name;
 		this.email = email;
 		this.password = password;
+		this.passwordConfirmation = passwordConfirmation;
+		this.roles = roles;
+		this.productos = productos;
 	}
 
 	public Long getId() {

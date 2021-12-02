@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +45,28 @@ public class UsuarioService {
 	public Usuario getIdLoginUser(String email, String password) {
 		return usuarioRepository.getIdLoginUser(email, password);
 	}
+	
+	public boolean loginUsuario(String email, String password) {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		if(usuario == null) {
+			return false;
+		} else {
+//			if(password.equals(usuario.getPassword())) {
+			if(BCrypt.checkpw(password, usuario.getPassword())) {
+				return true;
+			} else {
+				return false;
+			}
+		} 
 
+	}
+	
+	public Usuario findByEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
+	
+	public Usuario findByName(String nombre) {
+		return usuarioRepository.findByName(nombre);
+	}
+	
 }

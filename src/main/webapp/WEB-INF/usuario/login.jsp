@@ -18,6 +18,7 @@
 			<h5 class="card-header">Ingresar Usuario</h5>
 		  	<div class="card-body">
 				<form:form class="p-4" method="POST" action="/usuario/iniciar" modelAttribute="usuario">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					<div class="form-group row">
 						<form:label class="col-sm-2 col-form-label" path="email">Email:</form:label>
 						<div class="col-sm-10">
