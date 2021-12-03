@@ -1,6 +1,5 @@
 package com.nttdata.config;
 
-import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +18,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	UserDetailsService usd;
 //	UsuarioDetailsServiceImplementation udsi;
 	
-	
 	@Override
  	protected void configure(HttpSecurity http) throws Exception {
 		//Configuracion basica
@@ -31,19 +29,44 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// .permitAll() // permite a todos acceso a la ruta mientras tenga un rol USER
 		// anyRequest cualquier ruta autehntica debe estar autenticado para cualquier ruta
 		http.authorizeRequests()
- 			.antMatchers("/registro","/usuario/registrarjsp","/","/usuario/registrar")
+ 			.antMatchers("/", "/home", "login", "/registro", "/usuario/registrar", "/usuario/login")
+ 			.permitAll()
+ 			.antMatchers("/usuario", "/producto/producto_admin", "/venta","/categoria/categoria_admin") 
+ 			.hasAuthority("ROLE_ADMIN")
+ 			.antMatchers("/producto", "/carrito/**","/categoria/**")
+ 			.hasAuthority("ROLE_USER")
+ 			.antMatchers("/logout", "/usuario/login")
  			.permitAll()
  			.anyRequest().authenticated()
-// 			.hasRole("USER")
+// 			.anyRequest()
+// 			.authenticated()
  		.and()
  		.formLogin()
  			.loginPage("/login") 
+ 			.loginProcessingUrl("/usuario/login")
+ 			.defaultSuccessUrl("/home")
+// 			.failureUrl("/access_denied")
 	 		.permitAll()
  			.usernameParameter("email")
- 			.passwordParameter("password")
- 		.and()
- 		.logout()
- 			.permitAll();
+ 			.passwordParameter("password");
+// 		.and()
+//	      .logout()
+//	      .logoutUrl("/perform_logout")
+//	      .deleteCookies("JSESSIONID")
+//	      .logoutSuccessHandler(logoutSuccessHandler());
+// 			.permitAll();
+		
+//		http.authorizeRequests()
+//		.antMatchers("/home","/carrito/**").hasAuthority("ROLE_USER")
+//		.antMatchers("/producto/**","/usuario/**").hasAuthority("ROLE_ADMIN")
+//		.antMatchers("/login","/registro").permitAll()
+//		.anyRequest().authenticated()
+//		.and()
+//		.formLogin().loginPage("/login")
+//		.successHandler(customAuthenticationSuccessHandler)
+//		.failureUrl("/login?error=true")
+//		.usernameParameter("email").passwordParameter("password");
+//		http.headers().cacheControl();
  	}
 	
 	@Bean

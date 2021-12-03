@@ -1,28 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <div class="container">
-    <a class="navbar-brand" href="${sessionScope.usuarioLogin == null ? "/" : "/usuario/logout"}">Tienda Virtual</a>
+    <a class="navbar-brand" href="/">Tienda Virtual</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="menu">
       <div class="navbar-nav">
-	    <c:if test="${sessionScope.usuarioLogin == null}">
+
 	        <a class="nav-link" aria-current="page" href="/usuario">Usuario</a>
 	        <a class="nav-link" href="/producto/producto_admin">Producto</a>
 		    <a class="nav-link" href="/venta">Venta</a>
 		    <a class="nav-link" href="/categoria/categoria_admin">Categoría</a>
-		</c:if>
-		<c:if test="${sessionScope.usuarioLogin != null}">
+		
+
 	        <a class="nav-link" href="/producto">Productos</a>
 	        <!-- <a class="nav-link" href="/producto">Categorias</a> -->
-        </c:if>
+
       </div>
       <div class="navbar-nav">
-      	<c:if test="${sessionScope.usuarioLogin != null}">
+
       		<!-- <a type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="/usuario/login">Carrito</a> -->
 	        <li class="nav-item dropdown">
 	          	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	            	${sessionScope.usuarioLogin.getName()}
+						${nombre_usuario}
+						Usuario
 <%-- 	            	<% request.getSession().getAttribute("usuarioLogin").getName %> --%>
 	          	</a>
 	          	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -31,11 +32,10 @@
 	            	<li><a class="dropdown-item" href="/usuario/logout">Cerrar sesión</a></li>
 	          	</ul>
 	       	</li>
-      	</c:if>
-      	<c:if test="${sessionScope.usuarioLogin == null}">
-		   	<a type="button" class="btn-nav btn btn-primary btn-sm" href="/usuario/login">Ingreso</a>
-		   	<a type="button" class="btn-nav btn btn-success btn-sm" href="/usuario/registro">Registro</a>
-	   	</c:if>
+
+		   	<a type="button" class="btn-nav btn btn-primary btn-sm" href="/login">Ingreso</a>
+		   	<a type="button" class="btn-nav btn btn-success btn-sm" href="/registro">Registro</a>
+
 	  </div>
     </div>
   </div>

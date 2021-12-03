@@ -33,16 +33,10 @@ public class ProductoController {
 	@RequestMapping("")
 	public String producto(@ModelAttribute("producto") Producto producto,
 			@ModelAttribute("categoria") Categoria categoria,
-			Model model, HttpSession session) {
-		Usuario usuarioLogin = (Usuario)session.getAttribute("usuarioLogin");
-		if(usuarioLogin != null) {
-			model.addAttribute("listaCategorias", categoriaService.obtenerListaCategoria());
-			model.addAttribute("listaProductos", productoService.obtenerListaProducto());
-			return "producto/producto.jsp";
-		} else {
-			return "redirect:/";
-		}
-
+			Model model) {
+		model.addAttribute("listaCategorias", categoriaService.obtenerListaCategoria());
+		model.addAttribute("listaProductos", productoService.obtenerListaProducto());
+		return "producto/producto.jsp";
 	}
 	
 	@RequestMapping("/producto_admin")

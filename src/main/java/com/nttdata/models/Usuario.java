@@ -28,6 +28,22 @@ public class Usuario {
 	@Transient
 	private String passwordConfirmation;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "roles_usuarios", // Tabla intermedia
+			joinColumns = @JoinColumn(name="usuario_id"), // Nombre posicionado
+			inverseJoinColumns = @JoinColumn(name="rol_id") // Nombre refereciado
+			)
+	private List<Role> roles;
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
+	
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+	
 	public String getPasswordConfirmation() {
 		return passwordConfirmation;
 	}
@@ -35,22 +51,6 @@ public class Usuario {
 	public void setPasswordConfirmation(String passwordConfirmation) {
 		this.passwordConfirmation = passwordConfirmation;
 	}
-
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-		name = "roles_usuarios", // Tabla intermedia
-		joinColumns = @JoinColumn(name="usuario_id"), // Nombre posicionado
-		inverseJoinColumns = @JoinColumn(name="rol_id") // Nombre refereciado
-	)
-	private List<Role> roles;
 	
 	public Usuario() {
 		super();
@@ -123,7 +123,5 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 	
 }

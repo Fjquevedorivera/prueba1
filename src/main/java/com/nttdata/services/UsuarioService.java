@@ -18,6 +18,18 @@ public class UsuarioService {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	
+	@Autowired
+	RoleService roleService;
+	
+	@Autowired
+	BCryptPasswordEncoder bcpe;
+	
+	public Usuario persistirUsuarioRol(Usuario usuario) {
+		usuario.setPassword(bcpe.encode(usuario.getPassword()));
+		usuario.setRoles(roleService.getListRole("ROLE_USER"));
+		return usuarioRepository.save(usuario);
+	}
+	
 	public void insertarUsuario(@Valid Usuario usuario) {
 		usuarioRepository.save(usuario);	
 	}

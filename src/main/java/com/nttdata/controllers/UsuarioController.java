@@ -1,6 +1,6 @@
 package com.nttdata.controllers;
 
-import java.util.List;
+import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -33,12 +33,6 @@ public class UsuarioController {
 		return "usuario/usuario.jsp";
 	}
 	
-	@RequestMapping("/registro")
-	public String registro(@ModelAttribute("usuario") Usuario usuario,
-			Model model) {
-		return "usuario/registro.jsp";
-	}
-	
 	@RequestMapping("/agregar")
 	public String agregar(@Valid @ModelAttribute("usuario") Usuario usuario) {
 		usuarioService.insertarUsuario(usuario);
@@ -47,26 +41,48 @@ public class UsuarioController {
 	
 	@RequestMapping("/registrar")
 	public String registrar(@Valid @ModelAttribute("usuario") Usuario usuario) {
-		usuarioService.insertarUsuario(usuario);
-		return "redirect:/usuario/login";
+		Usuario usuario_existe = usuarioService.findByEmail(usuario.getEmail());
+		//encript password
+		if(usuario_existe == null) {
+			usuarioService.persistirUsuarioRol(usuario);
+			return "redirect:/login";
+		} else {
+			System.out.println("Usuario existe");
+		}
+//		usuarioService.registroUsuario(usuario);
+		return "redirect:/home";
 	}
 	
+//	@RequestMapping("/login")
+//	public String login(@ModelAttribute("usuario") Usuario usuario, HttpSession session) {
+//		System.out.println(usuario.getId());
+//		session.setAttribute("usuarioLogin", null);
+//		session.setAttribute("carro", null);
+//		session.setAttribute("precioTotal", null);
+//		return "usuario/login.jsp";
+//	}b
+	
 	@RequestMapping("/login")
-	public String login(@ModelAttribute("usuario") Usuario usuario, HttpSession session) {
-		System.out.println(usuario.getId());
-		session.setAttribute("usuarioLogin", null);
+	public String login(Principal principal, Model model, HttpSession session) {
+		
+//		String nombre = principal.getName();
+		
+//		System.out.println(nombre);
+//		Usuario usuario = usuarioService.findByName(nombre);
 		session.setAttribute("carro", null);
 		session.setAttribute("precioTotal", null);
-		return "usuario/login.jsp";
+//		model.addAttribute("nombre_usuario", usuario.getName());
+//		model.addAttribute("listaProductos", productoService.obtenerListaProducto());
+		model.addAttribute("error", null);
+		return "redirect:/home.jsp";
 	}
 	
 	@RequestMapping("/logout")
 	public String logout(@ModelAttribute("usuario") Usuario usuario, HttpSession session) {
 		System.out.println(usuario.getId());
-		session.setAttribute("usuarioLogin", null);
 		session.setAttribute("carro", null);
 		session.setAttribute("precioTotal", null);
-		return "usuario/login.jsp";
+		return "redirect:/logout";
 	}
 	
 	@RequestMapping("/iniciar")
@@ -77,8 +93,7 @@ public class UsuarioController {
 			System.out.println(usuarioLogin.getId());
 			session.setAttribute("usuarioLogin", usuarioLogin);
 			model.addAttribute("usuarioLogin", usuarioLogin);
-			model.addAttribute("listaProductos", productoService.obtenerListaProducto());
-			model.addAttribute("error", null);
+
 			return "redirect:/producto";
 		} else {
 			model.addAttribute("error", "Usuario y contraseña incorrectos");

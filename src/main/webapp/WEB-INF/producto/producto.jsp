@@ -59,7 +59,7 @@
 			      		</td>
 	      		  		<form:form method="POST" action="/productousuario" var="producto_usuario">
 	      		  			<td>
-	      		  				<input min="0" max="1000" type="number" class="form-control form-control-sm text-end" id="quantity_product" name="quantity_product" value="" placeholder="Ingrese cantidad de productos">
+	      		  				<input min="0" max="1000" type="number" class="form-control form-control-sm text-end" id="quantity_product" name="quantity_product" value="" placeholder="Ingrese cantidad de productos" required>
 		      		  			<input type="hidden" id="producto" name="producto" value="${producto.getId()}">
 		      		  			<input type="hidden" id="usuario" name="usuario" value="${sessionScope.usuarioLogin.getId()}">
 	      		  			</td>
