@@ -43,11 +43,16 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<form:label class="col-sm-2 col-form-label" path="passwordConfirmation">Confirmar Contrase�a:</form:label>
+						<form:label class="col-sm-2 col-form-label" path="passwordConfirmation">Confirmar Password:</form:label>
 						<div class="col-sm-10">
 							<form:input class="form-control" type="text" path="passwordConfirmation"/>
 						</div>
 					</div>
+					<c:if test="${error != null}">
+						<div class="alert alert-danger" role="alert">
+						  ${error}
+						</div>
+					</c:if>
 					<div class="form-group row pt-2">
 						<div class="d-flex justify-content-center">
 							<input class="btn btn-danger m-2" type="reset" value="Limpiar">

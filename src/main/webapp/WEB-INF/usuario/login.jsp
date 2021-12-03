@@ -18,9 +18,9 @@
 				<form class="p-4" method="POST" action="${pageContext.request.contextPath}/usuario/login">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label" for="email">Email: </label>
+						<label class="col-sm-3 col-form-label" for="username">Email: </label>
 						<div class="col-sm-9">
-							<input class="form-control" type="text" name="email"/> 
+							<input class="form-control" type="text" name="username"/> 
 						</div>
 					</div>
 					<div class="form-group row">

@@ -40,17 +40,23 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/registrar")
-	public String registrar(@Valid @ModelAttribute("usuario") Usuario usuario) {
+	public String registrar(@Valid @ModelAttribute("usuario") Usuario usuario, Model model) {
 		Usuario usuario_existe = usuarioService.findByEmail(usuario.getEmail());
+
 		//encript password
 		if(usuario_existe == null) {
-			usuarioService.persistirUsuarioRol(usuario);
-			return "redirect:/login";
+			if(usuario.getPassword() == usuario.getPasswordConfirmation()) {
+				usuarioService.persistirUsuarioRol(usuario);
+				return "redirect:/login";
+			} else {
+				model.addAttribute("error", "Contraseña no coincide");
+				System.out.println("Contraseña no coincide");
+			}
 		} else {
 			System.out.println("Usuario existe");
 		}
 //		usuarioService.registroUsuario(usuario);
-		return "redirect:/home";
+		return "usuario/registro.jsp";
 	}
 	
 //	@RequestMapping("/login")
@@ -65,16 +71,16 @@ public class UsuarioController {
 	@RequestMapping("/login")
 	public String login(Principal principal, Model model, HttpSession session) {
 		
-//		String nombre = principal.getName();
+		String nombre = principal.getName();
 		
-//		System.out.println(nombre);
-//		Usuario usuario = usuarioService.findByName(nombre);
+		System.out.println(nombre);
+		Usuario usuario = usuarioService.findByName(nombre);
 		session.setAttribute("carro", null);
 		session.setAttribute("precioTotal", null);
-//		model.addAttribute("nombre_usuario", usuario.getName());
+		model.addAttribute("nombre_usuario", usuario.getName());
 //		model.addAttribute("listaProductos", productoService.obtenerListaProducto());
 		model.addAttribute("error", null);
-		return "redirect:/home.jsp";
+		return "home.jsp";
 	}
 	
 	@RequestMapping("/logout")

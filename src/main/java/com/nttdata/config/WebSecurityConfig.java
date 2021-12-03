@@ -45,10 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  			.loginPage("/login") 
  			.loginProcessingUrl("/usuario/login")
  			.defaultSuccessUrl("/home")
-// 			.failureUrl("/access_denied")
-	 		.permitAll()
- 			.usernameParameter("email")
- 			.passwordParameter("password");
+ 			.failureUrl("/access_denied")
+	 		.permitAll();
+// 			.usernameParameter("email")
+// 			.passwordParameter("password");
 // 		.and()
 //	      .logout()
 //	      .logoutUrl("/perform_logout")
