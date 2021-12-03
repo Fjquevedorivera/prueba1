@@ -45,16 +45,16 @@ public class VentaController {
 		//--------------------------------------------------------------------
 
 		        List<ProductoUsuario> productosComprar = (List<ProductoUsuario>) session.getAttribute("carro");
-				String nombre = principal.getName();
+				String email = principal.getName();
 
-				Usuario usuario = usuarioService.findByName(nombre);
-
+				Usuario usuario = usuarioService.findByEmail(email);
+				
 		        if(usuario==null) {
 		            System.out.println("No se puede procesar la compra si no inicia sesión!");
-		            return "login.jsp";
+		            return "usuario/login.jsp";
 		        }else if(productosComprar.size()==0) { 
 		            System.err.println("No se puede procesar la compra porque el carrito está vacío!");
-		            return "redirect:/inicio";
+		            return "redirect:/home";
 		        }else{
 		        	System.out.println(usuario);
 		            for(int i=0; i<productosComprar.size();i++) {
@@ -65,6 +65,7 @@ public class VentaController {
 		                productoUsuario.setProducto(productosComprar.get(i).getProducto());
 		                prous.insertarCompra(productoUsuario);
 		            }
+		            session.setAttribute("carro", null);
 		            System.out.println("Compra realizada con éxito");
 		            return "redirect:/producto";
 		        }

@@ -17,7 +17,7 @@
 		  	<ul class="dropdown-menu">
 	        	<c:forEach items="${listaCategorias}" var="categoria">
 	            	<li>
-	            	<form:form method="POST" action="producto/categoria">
+	            	<form:form method="POST" action="/producto/categoria">
 	            		<input type="hidden" name="id" value="${categoria.getId()}"/> 
 	            		<button type="submit" class="dropdown-item">${categoria.getName()}</button>
 	            	</form:form>
