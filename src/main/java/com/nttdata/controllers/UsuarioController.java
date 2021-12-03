@@ -71,13 +71,13 @@ public class UsuarioController {
 	@RequestMapping("/login")
 	public String login(Principal principal, Model model, HttpSession session) {
 		
-		String nombre = principal.getName();
+//		String nombre = principal.getName();
 		
-		System.out.println(nombre);
-		Usuario usuario = usuarioService.findByName(nombre);
+//		System.out.println(nombre);
+//		Usuario usuario = usuarioService.findByName(nombre);
 		session.setAttribute("carro", null);
 		session.setAttribute("precioTotal", null);
-		model.addAttribute("nombre_usuario", usuario.getName());
+//		model.addAttribute("nombre_usuario", usuario.getName());
 //		model.addAttribute("listaProductos", productoService.obtenerListaProducto());
 		model.addAttribute("error", null);
 		return "home.jsp";

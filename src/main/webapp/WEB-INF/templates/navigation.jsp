@@ -92,7 +92,10 @@
       <div class="modal-footer">
 		<div class="btn-group">
 	        <button type="col button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-	        <button type="col button" class="btn btn-primary">Comprar</button>
+	        <form action="/venta/agregar" method="POST">
+	        	<button type="submit" class="btn btn-primary">Comprar</button>
+	        </form>
+	        
       	</div>
 
       </div>
